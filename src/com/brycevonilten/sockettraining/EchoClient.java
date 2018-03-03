@@ -9,6 +9,7 @@ import java.util.Scanner;
 import javax.swing.*;
 
 public class EchoClient extends JFrame{
+	
 	private ConnectPanel mainpanel;
 	
 	public EchoClient () {
