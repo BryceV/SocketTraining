@@ -8,31 +8,25 @@ import java.util.Scanner;
 
 import javax.swing.*;
 
+//JFrame implements Serializable, for now suppress
+@SuppressWarnings("serial")
 public class EchoClient extends JFrame{
-	
-	private ConnectPanel mainpanel;
-	
-	public EchoClient () {
-		setTitle("Connect Information");
-		setSize(500,120);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		mainpanel = new ConnectPanel();
-		add(mainpanel);
-		setVisible(true); 
-	}
-    
+
 	public static void main(String[] args) throws Exception {
-		EchoClient infoBox = new EchoClient();
+		UIManager connectBox = new UIManager("connect");
+
 		String host = null;
-		String userInput;
+		String userInput = null;
 		int port = 0;
 		
-		while ((host == null) && (port <= 0)) {
-			host = infoBox.mainpanel.getIpAddress();
-	        port = infoBox.mainpanel.getPortNum();
-	        System.out.println(host + ":" + port);
+		//Find an alternative to this loop
+		while ((host == null) || (port <= 0)) {
+			host = connectBox.connectpanel.getIpAddress();
+			port = connectBox.connectpanel.getPortNum();
+	        Thread.sleep(500);
 		}
-
+		
+		connectBox.window.dispose();
         //System.out.println(host + ":" + port);
 		
         Scanner keyboard = new Scanner(System.in);
@@ -53,10 +47,21 @@ public class EchoClient extends JFrame{
                 
         System.out.println("Connected to " + host + " on port " + port);
         
+        UIManager typeBox = new UIManager("type");
+        
         // read in a line from stdin, send to server, and print back reply
         while (true) {
             System.out.println("Waiting for input...");
-            userInput = keyboard.nextLine();
+            
+            //Find an alternative to this loop
+            userInput = null;
+    		while ((userInput == null) || userInput.equals("")) {
+    			userInput = typeBox.typepanel.getInput();
+    			typeBox.typepanel.setInput("");
+    	        Thread.sleep(500);
+    		}
+    		
+            //userInput = keyboard.nextLine();
             
             if (userInput.equals("bye")) {
             	 userInput = null;
@@ -67,7 +72,8 @@ public class EchoClient extends JFrame{
             out.println(userInput);
 
             // get reply from server and print it out
-            System.out.println("echo: " + in.readLine()); 
+            //System.out.println(in.readLine()); 
+            typeBox.typepanel.setLabel(in.readLine());
         }
 
         // close IO streams, then socket

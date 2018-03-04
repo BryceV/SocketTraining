@@ -29,13 +29,16 @@ public class ServerThread extends Thread{
 		try {
 	        // waits for data and reads it in until connection dies
 	        // readLine() blocks until the server receives a new line from client
-	        String s;
+	        String s = null;
 	        while (true) {
 	        	System.out.println("Waiting for client input...");
 	        	s = in.readLine();
 	        	
-	        	if (s == null) 
+	        	if (s == null) { 
 	        		break;
+	        	}
+	        	
+	        	s = "Server echoes back \'" + s + "\'"; 
 	        	
 	        	out.println(s);
 	        } 

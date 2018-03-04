@@ -3,6 +3,8 @@ package com.brycevonilten.sockettraining;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+
+import javax.swing.JOptionPane;
 //import java.util.Vector;
 
 public class EchoServer extends Thread{
@@ -19,6 +21,7 @@ public class EchoServer extends Thread{
 	        serverSocket = new ServerSocket(0);
 	        final int port = serverSocket.getLocalPort();
 	        
+	        //JOptionPane.showMessageDialog(null, "Started server on port " + port);
 	        System.out.println("Started server on port " + port);
     	}
     	catch(IOException e) {

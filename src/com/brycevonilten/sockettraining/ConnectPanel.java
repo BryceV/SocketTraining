@@ -9,6 +9,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+//JPanel implements Serializable, for now suppress
+@SuppressWarnings("serial")
 public class ConnectPanel extends JPanel{
 	private JPanel mainpanel, panel1, panel2;
 	private JLabel ipMessage, portMessage;
@@ -41,7 +43,7 @@ public class ConnectPanel extends JPanel{
 		mainpanel.add(panel2, BorderLayout.SOUTH);
 		add(mainpanel);
 	}
-	
+
 	public String getIpAddress() {
 		return ipAddress;
 	}
@@ -54,8 +56,8 @@ public class ConnectPanel extends JPanel{
 		return portNum;
 	}
 
-	public void setPortNum(int portNum) {
-		this.portNum = portNum;
+	public void setPortNum(int num) {
+		this.portNum = num;
 	}
 
 	private class EnterActionListener implements ActionListener 
@@ -65,8 +67,10 @@ public class ConnectPanel extends JPanel{
 			String input;
 			
 			setIpAddress(ipField.getText());
+			//Add check to make sure they are ints?
 			input = portField.getText();
 			setPortNum(Integer.parseInt(input));
+			System.out.println("The input was: " + getIpAddress() + ":" + getPortNum());
 		}
 	}
 }
