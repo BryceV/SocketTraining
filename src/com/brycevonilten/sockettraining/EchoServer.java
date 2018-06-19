@@ -21,6 +21,7 @@ public class EchoServer extends Thread{
 	        serverSocket = new ServerSocket(0);
 	        final int port = serverSocket.getLocalPort();
 	        
+	        //You can use this but it is 'modal', so it wont continue execution
 	        //JOptionPane.showMessageDialog(null, "Started server on port " + port);
 	        System.out.println("Started server on port " + port);
     	}
